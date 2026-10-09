@@ -1,0 +1,67 @@
+    <div id="authSection">
+        <div class="auth-container">
+            <div class="css-logo-circle auth-logo-big">H</div>
+            <div id="loginForm">
+                <div class="auth-tabs">
+                    <div class="auth-tab active">Login</div>
+                    <div class="auth-tab" onclick="switchTab('signup')">Sign Up</div>
+                </div>
+                <div class="auth-form">
+                    <h2>LOGIN</h2>
+                    <input type="text" id="loginUsername" class="auth-input" placeholder="Username">
+                    <input type="password" id="loginPassword" class="auth-input" placeholder="Password">
+                    <button class="auth-btn" onclick="loginUser()">Login</button>
+                    <a class="forgot-link" onclick="switchTab('forgot')">Forgot Password?</a>
+                </div>
+            </div>
+            <div id="signupForm" style="display:none;">
+                <div class="auth-tabs">
+                    <div class="auth-tab" onclick="switchTab('login')">Login</div>
+                    <div class="auth-tab active">Sign Up</div>
+                </div>
+                <div class="auth-form">
+                    <h2>REGISTER</h2>
+                    <div class="row-inputs">
+                        <input type="text" id="regFirstName" class="auth-input" placeholder="First Name">
+                        <input type="text" id="regLastName" class="auth-input" placeholder="Last Name">
+                    </div>
+                    <input type="text" id="regUsername" class="auth-input" placeholder="Username">
+                    <input type="password" id="regPassword" class="auth-input" placeholder="Password">
+                    <p style="text-align:left; color:#888; margin-bottom:5px;">Security Question 1</p>
+                    <select id="regQ1" class="auth-input">
+                        <option>First pet's name?</option>
+                        <option>Favorite color?</option>
+                        <option>Birth city?</option>
+                    </select>
+                    <input type="text" id="regA1" class="auth-input" placeholder="Answer 1">
+                    <p style="text-align:left; color:#888; margin-bottom:5px;">Security Question 2</p>
+                    <select id="regQ2" class="auth-input">
+                        <option>Mother's maiden name?</option>
+                        <option>Favorite movie?</option>
+                        <option>First school?</option>
+                    </select>
+                    <input type="text" id="regA2" class="auth-input" placeholder="Answer 2">
+                    <button class="auth-btn green" onclick="registerUser()">Register</button>
+                </div>
+            </div>
+            <div id="forgotForm" style="display:none;">
+                <div class="auth-form">
+                    <h2 style="color:var(--accent-red)">RESET PASSWORD</h2>
+                    <div id="forgotStep1">
+                        <input type="text" id="forgotUsername" class="auth-input" placeholder="Enter Username">
+                        <button class="auth-btn" onclick="fetchSecurityQuestions()">Next</button>
+                        <a class="forgot-link" onclick="switchTab('login')">Back to Login</a>
+                    </div>
+                    <div id="forgotStep2" style="display:none;">
+                        <p id="labelQ1" style="text-align:left; color:var(--accent-blue);"></p>
+                        <input type="text" id="forgotA1" class="auth-input" placeholder="Answer 1">
+                        <p id="labelQ2" style="text-align:left; color:var(--accent-blue);"></p>
+                        <input type="text" id="forgotA2" class="auth-input" placeholder="Answer 2">
+                        <input type="password" id="newPass" class="auth-input" placeholder="New Password">
+                        <button class="auth-btn green" onclick="resetPassword()">Reset Password</button>
+                        <a class="forgot-link" onclick="switchTab('login')">Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
