@@ -1,0 +1,121 @@
+<!-- Feature 2: Habit Tracker Grid & Actions -->
+<div id="pdfPage1">
+            <div class="top-bar">
+                <div class="user-menu-container">
+                    <button class="user-menu-btn" onclick="toggleUserMenu()">⋮</button>
+                    <div id="userDropdown" class="user-dropdown">
+                        <a onclick="openSettings()">⚙️ Settings</a>
+                        <a onclick="confirmLogout()">🚪 Logout</a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="pdfPage1">
+                <header>
+                    <div class="header-left">
+                        <div class="logo-container" onclick="location.reload()">
+                            <div class="css-logo-circle">H</div>
+                            <span class="app-name">Habi<span>Flow</span></span>
+                        </div>
+                        <div id="greetingDisplay" class="user-greeting"></div>
+                        <div class="month-nav">
+                            <button class="nav-btn hover-up" id="prevBtn" onclick="changeMonth(-1)">←</button>
+                            <h1 id="monthLabel"></h1>
+                            <button class="nav-btn hover-up" onclick="changeMonth(1)">→</button>
+                        </div>
+                    </div>
+                    <div id="dailyQuoteBox" class="quote-box">
+                        <div id="dailyQuoteText" class="quote-text">"Quote loading..."</div>
+                    </div>
+                </header>
+
+                <div class="stats-panel">
+                    <div class="stat-item">
+                        <div class="stat-label">Total Habits</div>
+                        <div id="totalHabits" class="stat-value">0</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Monthly Done</div>
+                        <div id="monthlyCompletedCount" class="stat-value">0</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Monthly Progress</div>
+                        <div class="progress-track"><div id="progressBar" class="progress-fill"></div></div>
+                        <div id="progressPerc" style="margin-top:5px; font-weight:bold;">0%</div>
+                    </div>
+                    <div class="daily-donut-container">
+                        <div class="single-chart">
+                            <svg viewBox="0 0 36 36" class="circular-chart">
+                                <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                <path id="summaryWheel" class="circle" stroke-dasharray="100, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                <text x="18" y="20.35" class="percentage-text" id="summaryPercText">0%</text>
+                            </svg>
+                        </div>
+                        <div class="daily-text-stats">
+                            <div class="stat-label" style="font-size: 0.7rem;">Daily Focus</div>
+                            <div class="daily-row">
+                                <span class="daily-lbl">Done:</span>
+                                <span class="daily-val"><span id="todayCompletedCount">0</span> (<span id="completedPercTextDisplay">0%</span>)</span>
+                            </div>
+                            <div class="daily-row">
+                                <span class="daily-lbl">Left:</span>
+                                <span class="daily-val" id="leftPercText">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-group" data-html2canvas-ignore="true">
+                    <div class="input-wrapper">
+                        <input type="text" id="habitInput" placeholder="Enter habit name... (e.g. Gym 💪)">
+                        <button class="emoji-trigger-btn" onclick="toggleEmojiPicker()" title="Add Emoji">😊</button>
+                        <div id="emojiPicker" class="emoji-picker-container">
+                            </div>
+                    </div>
+
+                    <button class="btn-add hover-up" onclick="handleButtonClick(this, addHabit)">Add</button>
+                    <button class="btn-sec hover-up" onclick="handleButtonClick(this, openCopyModal)">📋 Copy</button>
+                    <button class="btn-sec hover-up" onclick="handleButtonClick(this, openStatsModal)">📊 Monthly Stats</button>
+                    <button class="btn-sec hover-up" onclick="downloadPDF()">📥 Download Data (PDF)</button>
+                    <button class="btn-sec btn-del-multi hover-up" onclick="handleButtonClick(this, openDeleteModal)">🗑️ Delete Habit </button>
+                </div>
+
+                <div class="table-container">
+                    <table><thead id="tableHead"></thead><tbody id="tableBody"></tbody></table>
+                </div>
+
+
+</div>
+
+<!-- Habit Management Modals -->
+    <div id="habitDetailModal" class="modal">
+        <div class="modal-content" style="text-align: center;">
+            <h2 style="margin-top:0; color:var(--accent-blue);">Full Habit Name</h2>
+            <div id="fullHabitText" style="color:var(--text-white); font-size:1.2rem; margin: 20px 0; word-wrap: break-word; line-height: 1.5;"></div>
+            <button class="btn-add hover-up" style="padding: 10px 40px;" onclick="closeModal('habitDetailModal')">Close</button>
+        </div>
+    </div>
+
+    <div id="copyModal" class="modal">
+        <div class="modal-content">
+            <h2 style="margin-top:0;">Copy Habits</h2>
+            <div id="modalList" style="max-height: 300px; overflow-y: auto;"></div>
+            <div style="display:flex; justify-content:flex-end; gap:20px; margin-top:20px;">
+                <button class="nav-btn hover-up" style="width: auto; padding: 0 15px;" onclick="closeModal('copyModal')">Cancel</button>
+                <button class="btn-add hover-up" style="padding: 0 25px; height: 40px;" onclick="confirmCopy()">Copy Selected</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <h2 style="margin-top:0; color:var(--accent-red);">Delete Habits</h2>
+            <p style="color:var(--text-gray); font-size:0.9rem;">Select habits to remove from this month:</p>
+            <div id="deleteList" style="max-height: 300px; overflow-y: auto; background:var(--input-bg); border-radius:8px; border:1px solid var(--border); margin:15px 0;"></div>
+            <div style="display:flex; justify-content:flex-end; gap:20px; margin-top:20px;">
+                <button class="nav-btn hover-up" style="width: auto; padding: 0 15px;" onclick="closeModal('deleteModal')">Cancel</button>
+                <button class="btn-add hover-up" style="background:var(--accent-red); padding: 0 25px; height: 40px;" onclick="executeBulkDelete()">Delete Selected</button>
+            </div>
+        </div>
+    </div>
+
