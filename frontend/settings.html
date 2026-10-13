@@ -1,0 +1,121 @@
+<!-- Feature 5: User Settings & Security Modals -->
+    <div id="statsModal" class="modal">
+        <div class="modal-content stats-modal-content">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:25px;">
+                <h2 style="margin:0">Monthly Statistics</h2>
+                <span style="cursor:pointer; font-size:1.5rem;" onclick="closeModal('statsModal')">×</span>
+            </div>
+            <div class="stats-cards-grid">
+                <div class="stat-detail-card"><div class="stat-card-label">COMPLETION RATE</div><div id="rateVal" class="stat-card-value">0%</div></div>
+                <div class="stat-detail-card"><div class="stat-card-label">TOTAL COMPLETED</div><div id="totalVal" class="stat-card-value">0</div></div>
+                <div class="stat-detail-card"><div class="stat-card-label">CURRENT STREAK</div><div id="currStreak" class="stat-card-value">0 days</div></div>
+                <div class="stat-detail-card"><div class="stat-card-label">LONGEST STREAK</div><div id="longStreak" class="stat-card-value">0 days</div></div>
+                <div class="stat-detail-card"><div class="stat-card-label">BEST DAY</div><div id="bestDay" class="stat-card-value">0%</div></div>
+                <div class="stat-detail-card"><div class="stat-card-label">HABITS TRACKED</div><div id="trackedCount" class="stat-card-value">0</div></div>
+            </div>
+            <h3 id="overviewTitle">Yearly Overview</h3>
+            <div class="yearly-months-grid" id="yearlyGrid"></div>
+            <button class="btn-close hover-up" onclick="closeModal('statsModal')">Close</button>
+        </div>
+    </div>
+
+    <div id="settingsModal" class="modal">
+        <div class="modal-content settings-content">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+                <h2 style="margin:0">⚙️ Settings</h2>
+                <span style="cursor:pointer; font-size:1.5rem;" onclick="closeModal('settingsModal')">×</span>
+            </div>
+            
+            <div class="profile-pic-placeholder">👤</div>
+
+            <div class="settings-section">
+                <div class="settings-title">2. Profile Settings</div>
+                <div class="form-group">
+                    <label class="form-label">Full Name</label>
+                    <input type="text" id="setFullName" class="settings-input" placeholder="Your Name">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Username</label>
+                    <input type="text" id="setUsername" class="settings-input" readonly>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Email (Optional)</label>
+                    <input type="text" id="setEmail" class="settings-input" placeholder="example@mail.com">
+                </div>
+                <button class="btn-add hover-up" style="width:100%; height:40px; margin-top:5px;" onclick="saveProfile()">Save Profile</button>
+            </div>
+
+            <div class="settings-section">
+                <div class="settings-title">Security</div>
+                <button class="settings-btn" onclick="openModal('changePasswordModal')">
+                    <span>🔑 Change Password</span>
+                    <span>></span>
+                </button>
+                <button class="settings-btn" onclick="openModal('changeSecurityModal')">
+                    <span>❓ Change Security Questions</span>
+                    <span>></span>
+                </button>
+            </div>
+
+            <button class="btn-sec hover-up" style="width:100%; color:var(--accent-red); border-color:var(--accent-red);" onclick="confirmLogout()">
+                🚪 Logout
+            </button>
+        </div>
+    </div>
+
+    <div id="changePasswordModal" class="modal">
+        <div class="modal-content settings-content">
+            <h2 style="margin-top:0;">Change Password</h2>
+            <div class="form-group">
+                <label class="form-label">Current Password</label>
+                <input type="password" id="cpCurrent" class="settings-input">
+            </div>
+            <div class="form-group">
+                <label class="form-label">New Password</label>
+                <input type="password" id="cpNew" class="settings-input">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Confirm New Password</label>
+                <input type="password" id="cpConfirm" class="settings-input">
+            </div>
+            <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:20px;">
+                <button class="nav-btn" onclick="closeModal('changePasswordModal')" style="width:auto; padding:0 15px;">Cancel</button>
+                <button class="btn-add" onclick="updatePassword()">Update</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="changeSecurityModal" class="modal">
+        <div class="modal-content settings-content">
+            <h2 style="margin-top:0;">Update Security Questions</h2>
+            <div class="form-group">
+                <label class="form-label">Current Password (Verify)</label>
+                <input type="password" id="csqPass" class="settings-input">
+            </div>
+            
+            <hr style="border:0; border-top:1px solid var(--border); margin:15px 0;">
+
+            <p style="text-align:left; color:#888; margin-bottom:5px;">Security Question 1</p>
+            <select id="csqQ1" class="settings-input" style="margin-bottom:10px;">
+                <option>First pet's name?</option>
+                <option>Favorite color?</option>
+                <option>Birth city?</option>
+            </select>
+            <input type="text" id="csqA1" class="settings-input" placeholder="Answer 1">
+            
+            <p style="text-align:left; color:#888; margin-bottom:5px; margin-top:10px;">Security Question 2</p>
+            <select id="csqQ2" class="settings-input" style="margin-bottom:10px;">
+                <option>Mother's maiden name?</option>
+                <option>Favorite movie?</option>
+                <option>First school?</option>
+            </select>
+            <input type="text" id="csqA2" class="settings-input" placeholder="Answer 2">
+
+            <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:20px;">
+                <button class="nav-btn" onclick="closeModal('changeSecurityModal')" style="width:auto; padding:0 15px;">Cancel</button>
+                <button class="btn-add" onclick="updateSecurityQuestions()">Update</button>
+            </div>
+        </div>
+    </div>
+
+
